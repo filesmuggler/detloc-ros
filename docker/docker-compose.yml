@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  dlr-runtime:
+    build: 
+      context: ./runtime/
+      args:
+        - NAME=DLRR
+        - BUILD_VERSION=1.0.0
+        - BUILD_DATE=2137-69-42T07:08:09Z
+        - DESCRIPTION="DetLoc-ROS runtime"
+        - URL="https://github.com/filesmuggler/detloc-ros"
+        - DOCKER_CMD=TBD
+        - ROS_VERSION=foxy
+    network_mode: host
+    restart: on-failure
+    environment:
+      - ROS_DOMAIN_ID=18
+
+  dlr-user:
+    build:
+      context: ./user/
+      args:
+        - NAME=DLRI
+        - BUILD_VERSION=1.0.0
+        - BUILD_DATE=2137-69-42T07:08:09Z
+        - DESCRIPTION="DetLoc-ROS user interface"
+        - URL="https://github.com/filesmuggler/detloc-ros"
+        - DOCKER_CMD=TBD
+        - ROS_VERSION=foxy
+    network_mode: host
+    restart: on-failure
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /home/${USER}:/rosbags
+    environment:
+      - ROS_DOMAIN_ID=18
+      - DISPLAY=1
+      - QT_X11_NO_MITSHM=1
+
+
+# TODO: add docker cmd in each service
