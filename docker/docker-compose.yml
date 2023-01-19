@@ -10,7 +10,7 @@ services:
         - BUILD_DATE=2137-69-42T07:08:09Z
         - DESCRIPTION="DetLoc-ROS runtime"
         - URL="https://github.com/filesmuggler/detloc-ros"
-        - DOCKER_CMD=TBD
+        - DOCKER_CMD="docker run -it --net=host --name=dlr-runtime-container docker-dlr-runtime /bin/bash"
         - ROS_VERSION=foxy
     network_mode: host
     restart: on-failure
@@ -27,7 +27,7 @@ services:
         - BUILD_DATE=2137-69-42T07:08:09Z
         - DESCRIPTION="DetLoc-ROS user interface"
         - URL="https://github.com/filesmuggler/detloc-ros"
-        - DOCKER_CMD=TBD
+        - DOCKER_CMD="xhost +local:root | docker run -it --net=host --name=dlr-user-container docker-dlr-user /bin/bash"
         - ROS_VERSION=foxy
     network_mode: host
     restart: on-failure
