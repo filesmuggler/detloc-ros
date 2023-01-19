@@ -16,6 +16,7 @@ services:
     restart: on-failure
     environment:
       - ROS_DOMAIN_ID=18
+    command: tail -f /dev/null
 
   dlr-user:
     build:
@@ -35,8 +36,9 @@ services:
       - /home/${USER}/rosbags:/rosbags
     environment:
       - ROS_DOMAIN_ID=18
-      - DISPLAY=1
+      - DISPLAY=0
       - QT_X11_NO_MITSHM=1
+    command: tail -f /dev/null
 
 
 # TODO: add docker cmd in each service
