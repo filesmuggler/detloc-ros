@@ -8,10 +8,13 @@ Versatile detection and localization pipeline in ROS for deep learning models
 docker compose build --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
 ```
 
-## Build and run containers
+## Run containers
+
+Edit the `.env` file with USER_PATH environmental variable to map rosbags directory from your PC to the container.
+Then run the command:
 
 ```sh
-docker compose up --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+docker compose up
 ```
 
 ## User
