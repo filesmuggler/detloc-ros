@@ -33,7 +33,7 @@ services:
     restart: on-failure
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /home/${USER}/rosbags:/rosbags
+      - ${USER_PATH}:/rosbags
     environment:
       - ROS_DOMAIN_ID=18
       - DISPLAY=:0
