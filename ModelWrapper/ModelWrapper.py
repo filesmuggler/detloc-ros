@@ -17,7 +17,7 @@ class ModelWrapper:
             bool: if the model was correctly loaded
         """
         self.model = torch.hub.load(path_to_repo, model_name, pretrained=True)
-        if self.model not None:
+        if self.model is not None:
             return True
         else:
             return False

@@ -6,7 +6,7 @@ def generate_launch_description():
 
     detection_node = Node(
         package="detection_node",
-        executable="DetectionNode"
+        executable="detection_node"
     )
 
     ld.add_action(detection_node)
