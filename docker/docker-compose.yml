@@ -1,6 +1,8 @@
 version: '3.9'
 
 services:
+
+  # Runtime without CUDA support
   dlr-runtime:
     build: 
       context: ./runtime/
@@ -16,8 +18,38 @@ services:
     restart: on-failure
     environment:
       - ROS_DOMAIN_ID=18
+    volumes:
+      - ${WORKSPACE_PATH}:/dlr_ws:rw
     command: tail -f /dev/null
 
+  # Runtime with CUDA support
+  dlr-runtime-cuda:
+    build: 
+      context: ./runtime-cuda/
+      args:
+        - NAME=DLRR-CUDA
+        - BUILD_VERSION=1.0.0
+        - BUILD_DATE=2137-69-42T07:08:09Z
+        - DESCRIPTION="DetLoc-ROS runtime with CUDA support"
+        - URL="https://github.com/filesmuggler/detloc-ros"
+        - DOCKER_CMD="docker run -it --net=host --gpus=all --name=dlr-runtime-cuda-container docker-dlr-runtime-cuda /bin/bash"
+        - ROS_VERSION=foxy
+    network_mode: host
+    restart: on-failure
+    environment:
+      - ROS_DOMAIN_ID=18
+    volumes:
+        - ${WORKSPACE_PATH}:/dlr_ws:rw
+    command: tail -f /dev/null
+    deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: 1
+                capabilities: [gpu]
+
+  # User container for debugging
   dlr-user:
     build:
       context: ./user/
@@ -33,10 +65,10 @@ services:
     restart: on-failure
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - ${USER_PATH}:/rosbags
+      - ${USER_PATH}:/rosbags:rw
     environment:
       - ROS_DOMAIN_ID=18
-      - DISPLAY=:0
+      - DISPLAY=:1
       - QT_X11_NO_MITSHM=1
     privileged: true
     command: tail -f /dev/null
