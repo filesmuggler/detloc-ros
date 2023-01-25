@@ -1,4 +1,6 @@
 from setuptools import setup
+import os
+from glob import glob
 
 package_name = 'detection_node'
 
@@ -22,4 +24,7 @@ setup(
         'console_scripts': [
         ],
     },
+    data_files=[
+    (os.path.join('share', package_name), glob('launch/*.launch.py'))
+    ],
 )
