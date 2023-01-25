@@ -13,6 +13,10 @@ ARG URL
 ARG DOCKER_CMD
 ARG ROS_VERSION
 
+# Pytorch env variables
+ENV PATH="${PATH}:/opt/hpcx/ompi/bin"
+ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/opt/hpcx/ompi/lib"
+
 
 # Set up labels
 LABEL org.label-schema.name=${NAME}
