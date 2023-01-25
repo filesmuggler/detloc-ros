@@ -1,6 +1,6 @@
 from setuptools import setup
-import os
-from glob import glob
+import warnings
+warnings.filterwarnings("ignore")
 
 package_name = 'detection_node'
 
@@ -23,8 +23,5 @@ setup(
     entry_points={
         'console_scripts': [
         ],
-    },
-    data_files=[
-    (os.path.join('share', package_name), glob('launch/*.launch.py'))
-    ],
+    }
 )
